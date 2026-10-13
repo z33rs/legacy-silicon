@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.legacysilicon.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "AbstractChunkRenderManagerAccessor",
+    "BufferBuilderMixin",
+    "BuiltChunkAccessor",
+    "BuiltChunkMixin",
+    "BuiltChunkStorageAccessor",
+    "BuiltChunkStorageInvoker",
+    "ChunkAssemblyHelperMixin",
+    "ChunkBuilderMixin",
+    "ChunkInfoAccessor",
+    "GLXMixin",
+    "GameRendererMixin",
+    "MinecraftClientMixin",
+    "ProfilerAccessor",
+    "VboChunkRenderManagerMixin",
+    "VertexBufferMixin",
+    "WorldRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

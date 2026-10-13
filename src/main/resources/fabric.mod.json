@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "legacysilicon",
+  "version": "${version}",
+  "name": "Legacy Silicon",
+  "description": "Sodium-style rendering optimizations for Minecraft 1.9.4, built for Apple Silicon Macs: batched chunk drawing and a faster visible-chunk search. Looks like vanilla.",
+  "authors": [
+    "z33rs"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/legacy-silicon",
+    "sources": "https://github.com/z33rs/legacy-silicon",
+    "issues": "https://github.com/z33rs/legacy-silicon/issues"
+  },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "preLaunch": [
+      "dev.legacysilicon.LegacySiliconPreLaunch"
+    ]
+  },
+  "mixins": [
+    "legacysilicon.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "1.9.4"
+  }
+}
