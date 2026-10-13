@@ -1,0 +1,30 @@
+name: Bug report
+description: Something broke, crashed, or looks different from vanilla
+body:
+  - type: textarea
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, what you saw. Screenshots help a lot for visual issues.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Computer
+      description: e.g. MacBook Air M2 8 GB, iMac Intel, Windows 11 + RTX 3060
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Launcher, Java and other mods
+      description: e.g. Prism Launcher, Azul Zulu 8 arm64, no other mods
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Log
+      description: Attach .minecraft/logs/latest.log (and the crash report if there is one).
+  - type: checkboxes
+    attributes:
+      label: Checks
+      options:
+        - label: The problem goes away when I remove Legacy Silicon (or set the matching option to false in config/legacysilicon.properties)

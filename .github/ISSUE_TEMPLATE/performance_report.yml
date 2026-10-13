@@ -1,0 +1,15 @@
+name: Performance report
+description: Share your FPS numbers (helps a lot on Macs and PCs we haven't tested)
+body:
+  - type: input
+    attributes:
+      label: Computer
+      description: e.g. MacBook Pro M3 Pro 18 GB
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: FPS with and without Legacy Silicon
+      description: Same world, spot and settings. Render distance, graphics settings, window size, and F3 FPS for both.
+    validations:
+      required: true
