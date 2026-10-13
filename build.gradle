@@ -1,0 +1,65 @@
+plugins {
+	id "net.fabricmc.fabric-loom-remap" version "${loom_version}"
+	id "legacy-looming" version "${loom_version}"
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+loom {
+	// Run the dev client on the same ARM64 natives Prism uses.
+	runs {
+		client {
+			// Autotest: -PautoTest joins a local server, benchmarks each mode, screenshots, and quits.
+			if (project.hasProperty("autoTest")) {
+				vmArgs "-Dlegacysilicon.autotest=true"
+				if (project.hasProperty("autoTestMode")) {
+					vmArgs "-Dlegacysilicon.autotest.mode=${project.property('autoTestMode')}", "-verbose:gc", "-XX:+PrintGCApplicationStoppedTime"
+				}
+				if (project.hasProperty("autoTestJfr")) {
+					vmArgs "-XX:StartFlightRecording=filename=autotest.jfr,settings=profile,dumponexit=true"
+				}
+				if (project.hasProperty("autoTestDistances")) {
+					vmArgs "-Dlegacysilicon.autotest.distances=${project.property('autoTestDistances')}"
+				}
+				programArgs "--server", "127.0.0.1", "--port", "25565", "--width", "1728", "--height", "1080", "--username", "LSTest"
+			}
+		}
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings(legacy.yarn(project.minecraft_version, project.yarn_build))
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+}
+
+processResources {
+	inputs.property "version", project.version
+	filesMatching("fabric.mod.json") {
+		expand "version": inputs.properties.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = "UTF-8"
+	it.options.release = 8
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+// Run the dev game on the same arm64 Java 8 that Prism uses, not the Gradle JDK.
+def prismJava8 = file("${System.getProperty('user.home')}/Library/Application Support/PrismLauncher/java/jre-legacy/bin/java")
+tasks.matching { it.name == "runClient" || it.name == "runServer" }.configureEach {
+	if (prismJava8.exists()) {
+		javaLauncher.unset()
+		executable = prismJava8.absolutePath
+	}
+}
